@@ -1,10 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProposalController;
 #use App\Http\Controllers\Web\UserController as WebUserController;
 #use App\Http\Controllers\API\UserController;
 
 // Add single page app API routes
+
+Route::post('/proposals', [ProposalController::class, 'store']);
+
+Route::post('/greeting', function () {
+    return 'Hello World hjdsgfj';
+});
+
 Route::prefix("web")
     ->group(function () {
         Route::prefix("/user")->group(function () {
