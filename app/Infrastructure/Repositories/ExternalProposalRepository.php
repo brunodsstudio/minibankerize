@@ -9,7 +9,7 @@ class ExternalProposalRepository implements ProposalRepositoryInterface
 {
     protected string $apiUrl = 'https://api.exemplo.com';
 
-    public function send(Proposal $proposal): array
+    public function sendOld(Proposal $proposal): array
     {
         $response = Http::post("{$this->apiUrl}/proposal", [
             'cpf' => $proposal->cpf,
@@ -23,7 +23,7 @@ class ExternalProposalRepository implements ProposalRepositoryInterface
         return $response->json();
     }
 
-    public function getStatus(string $cpf): string
+    public function getStatusOld(string $cpf): string
     {
         $response = Http::get("{$this->apiUrl}/proposal/status", ['cpf' => $cpf]);
         return $response->json()['status'] ?? 'indefinido';

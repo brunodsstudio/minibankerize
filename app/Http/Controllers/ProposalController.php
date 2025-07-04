@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Application\UseCases\CreateProposalUseCase;
 use App\Jobs\CheckProposalStatusJob;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class ProposalController extends Controller
 {
@@ -16,10 +18,16 @@ class ProposalController extends Controller
             'valor_emprestimo' => 'required|numeric',
             'chave_pix' => 'required|email',
         ]);
-
+      
         $response = $useCase->execute($data);
-        CheckProposalStatusJob::dispatch($data['cpf'])->delay(now()->addSeconds(30));
+        
+       CheckProposalStatusJob::dispatch($data['cpf']);
 
-        return response()->json($response);
+       if($response['status'] ==  "aprovado"){
+            return response()->json(['message' => 'Proposta Aprovada.'], 200);
+       } else {
+            return response()->json(['message' => 'Proposta Enviada aguardando aprovação.'], 201);
+       }
+
     }
 }

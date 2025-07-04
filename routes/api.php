@@ -9,10 +9,13 @@ use App\Http\Controllers\ProposalController;
 
 Route::post('/proposals', [ProposalController::class, 'store']);
 
+
+
 Route::post('/greeting', function () {
     return 'Hello World hjdsgfj';
 });
 
+/*
 Route::prefix("web")
     ->group(function () {
         Route::prefix("/user")->group(function () {
@@ -45,3 +48,4 @@ Route::prefix("/user")->group(function () {
         [UserController::class, "authorizeUser"],
     )->middleware("auth:sanctum");
 });
+*/
